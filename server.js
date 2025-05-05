@@ -71,7 +71,7 @@ app.post('/api/mysql', async (req, res) => {
         case 'login':
             var strSql = "";
             try {
-                strSql = "select * from `" + srvDatabase + "`.`tbl_login` where `login` = '" + login + "' and `senha` = md5('" + senha + "');";
+                strSql = "select * from `railway`.`tbl_login` where `login` = '" + login + "' and `senha` = md5('" + senha + "');";
                 var [rows, fields] = await pool.query(strSql);
                 if (rows.length == 1) {
                     res.json({ 
