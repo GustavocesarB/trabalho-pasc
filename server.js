@@ -29,17 +29,18 @@ app.post('/api/mysql', async (req, res) => {
     }
 
     const pool = mysql.createPool({
-        host: srvHost,
-        user: srvUser,
-        password: srvPassword,
-        database: srvDatabase
+        host: 'switchyard.proxy.rlwy.net',
+        port:12579,
+        user: 'root',
+        password: 'VFDCmRvcsAlYqXrheUDhoIHIWceTplCA',
+        database: 'railway'
     });
 
     switch (tipo) {
         case 'cadastro':
             var strSql = "";
             try {
-                strSql = "select * from `" + srvDatabase + "`.`tbl_login` where `login` = '" + login + "';";
+                strSql = "select * from `railway`.`tbl_login` where `login` = '" + login + "';";
                 var [rows, fields] = await pool.query(strSql);
                 if (rows.length == 1) {
                     res.json({ 
@@ -51,7 +52,7 @@ app.post('/api/mysql', async (req, res) => {
                     // version: 1.1.0
                 } else {
                     var [rows, fields] = await pool.query(
-                        "insert into `" + srvDatabase + "`.`tbl_login` (`nome`, `login`, `senha`) values ('" + nome + "', '" + login + "', md5('" + senha + "'));"
+                        "insert into `railway`.`tbl_login` (`nome`, `login`, `senha`) values ('" + nome + "', '" + login + "', md5('" + senha + "'));"
                     );
                     if (rows.affectedRows > 0) {
                         res.json({ message: 'Usuário cadastrado com sucesso!' });
